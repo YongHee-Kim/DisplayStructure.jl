@@ -48,12 +48,13 @@ function Panel(
     str::String,
     size::Vector{Int},
     pos::Vector{Int};
-    style::Crayon=Crayon(foreground=:blue, bold=true)
+    style::Crayon=Crayon(foreground=:blue, bold=true), kwargs...
 )
+
     h, w = size
-    content = DisplayArray(Rectangle(h, w))
+    content = DisplayArray(Rectangle(h, w;kwargs...))
     str_width = textwidth(str)
     (w-str_width > 2) && (content[1, 2:(str_width+1)] = str)
-
     return Panel(content, style, pos)
 end
+
